@@ -20,5 +20,8 @@ php -v
 composer -V
 ```
 
+Open `http://localhost:8080/info.php` in your browser of choice
+Use volumes (e.g: `docker run -itd --name php -v {your directory}:/var/www/html -p 8080:80 bananabb/php`) to bind mount the working directory in your choice.
+
 ## License
 MIT © [BananaBb](https://github.com/BananaBb)
