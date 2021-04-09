@@ -21,7 +21,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     php8.0-xml \
     php8.0-zip
 
-# Setup Server Block
+# Setup Server Routing
 RUN rm /etc/nginx/sites-available/default
 COPY default /etc/nginx/sites-available/default
 
@@ -29,11 +29,13 @@ COPY default /etc/nginx/sites-available/default
 COPY ./info.php /var/www/html/info.php
 COPY ./installer /composer-setup.php
 COPY ./entrypoint.sh /entrypoint.sh
+COPY ./laravel.sh /laravel.sh
 
 # Start the Services
 RUN /etc/init.d/nginx reload \
  && /etc/init.d/php8.0-fpm start \
- && chmod +x /entrypoint.sh
+ && chmod +x /entrypoint.sh \
+ && chmod +x /laravel.sh
 
 # Setup Composer
 RUN php /composer-setup.php \

@@ -21,5 +21,11 @@ php -v
 composer -V
 ```
 
+### Create Laravel project
+1. Run command as `/laravel.sh` in docker container
+2. Enter your project name 
+3. Enter your export port (Please sync with docker export port)
+4. The project is located on /var/www/html
+
 ## License
 MIT © [BananaBb](https://github.com/BananaBb)
