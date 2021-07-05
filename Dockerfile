@@ -19,7 +19,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     php8.0-opcache \
     php8.0-sqlite3 \
     php8.0-xml \
-    php8.0-zip
+    php8.0-zip \
+    sendmail
 
 # Setup Server Routing
 RUN rm /etc/nginx/sites-available/default
@@ -27,6 +28,8 @@ COPY default /etc/nginx/sites-available/default
 
 # File setting
 COPY ./info.php /var/www/html/info.php
+COPY ./sendEmail.php /var/www/html/sendEmail.php
+COPY ./mhsendmail /usr/local/bin/mhsendmail
 COPY ./installer /composer-setup.php
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./laravel.sh /laravel.sh
