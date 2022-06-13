@@ -1,25 +1,31 @@
 FROM bananabb/nginx:1.18.0
 MAINTAINER BananaBb
 
-# Install php:8.0.3 + packages + set HK timezone
+# Install php:8.1 + packages + set HK timezone
 ENV TZ=Asia/Hong_Kong
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
- && apt-add-repository ppa:ondrej/php -y \
+ && apt-add-repository ppa:ondrej/nginx -y \
  && apt-get update -y \
  && apt-get -qq install -y \
-    php8.0-fpm \
-    php8.0-cli \
-    php8.0-fpm \
-    php8.0-bcmath \
-    php8.0-curl \
-    php8.0-gd \
-    php8.0-intl \
-    php8.0-mbstring \
-    php8.0-mysql \
-    php8.0-opcache \
-    php8.0-sqlite3 \
-    php8.0-xml \
-    php8.0-zip
+    php8.1-fpm \
+    php8.1-common \
+    php8.1-mysql \
+    php8.1-sqlite3 \
+    php8.1-xml \
+    php8.1-xmlrpc \
+    php8.1-curl \
+    php8.1-gd \
+    php8.1-imagick \
+    php8.1-cli \
+    php8.1-dev \
+    php8.1-imap \
+    php8.1-mbstring \
+    php8.1-opcache \
+    php8.1-soap \
+    php8.1-zip \
+    php8.1-redis \
+    php8.1-intl \
+    php8.1-bcmath
 
 # Setup Server Routing
 RUN rm /etc/nginx/sites-available/default
@@ -33,7 +39,7 @@ COPY ./laravel.sh /laravel.sh
 
 # Start the Services
 RUN /etc/init.d/nginx reload \
- && /etc/init.d/php8.0-fpm start \
+ && /etc/init.d/php8.1-fpm start \
  && chmod +x /entrypoint.sh \
  && chmod +x /laravel.sh
 
