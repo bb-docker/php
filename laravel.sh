@@ -1,6 +1,6 @@
 #!/bin/bash
 DEF_NAME="example"
-DEF_PORT="8000"
+DEF_PORT="80"
 
 CYAN="\e[36m"
 GREY="\e[37m"

@@ -24,7 +24,7 @@ composer -V
 ### Restart Services (If you need)
 ```
 /etc/init.d/nginx reload
-/etc/init.d/php8.0-fpm restart
+/etc/init.d/php8.1-fpm restart
 ```
 
 ### Create Laravel project
