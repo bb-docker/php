@@ -33,6 +33,8 @@ COPY default /etc/nginx/sites-available/default
 
 # File setting
 COPY ./info.php /var/www/html/info.php
+COPY ./sendEmail.php /var/www/html/sendEmail.php
+COPY ./mhsendmail /usr/local/bin/mhsendmail
 COPY ./installer /composer-setup.php
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./laravel.sh /laravel.sh

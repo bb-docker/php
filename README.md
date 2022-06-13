@@ -21,11 +21,31 @@ php -v
 composer -V
 ```
 
+### Restart Services (If you need)
+```
+/etc/init.d/nginx reload
+/etc/init.d/php8.0-fpm restart
+```
+
 ### Create Laravel project
 1. Run command as `/laravel.sh` in docker container
 2. Enter your project name 
 3. Enter your export port (Please sync with docker export port)
 4. The project is located on /var/www/html
+
+### Use [mailhog](https://github.com/mailhog/MailHog) for email testing
+1. Create mailhog docker container. (Sample of `docker-compose.yml` attached, please change your content)
+2. Change the config as below `Config Setting`
+3. Change the your content in sendEmail.php
+4. Run `php sendEmail.php`
+5. You can check the result on [localhost:8025](http://localhost:8025)
+
+### Config Setting
+```
+# Enter to php Container
+# Find `sendmail_path` and change as below in file `/etc/php/8.1/cli/php.ini`
+sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog:1025"
+```
 
 ## License
 MIT © [BananaBb](https://github.com/BananaBb)
