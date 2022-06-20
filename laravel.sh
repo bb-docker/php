@@ -19,12 +19,22 @@ read -r -p "$(_quest) Export port $(_hint $DEF_PORT) " _PORT
 ## Use Composer build the project
 composer create-project --prefer-dist laravel/laravel $_NAME
 cd $_NAME
+mv * ../
+mv .e* ../
+mv .g* ../
+mv .s* ../
+cd ../
+rm -rf $_NAME
 composer install
+mv index.nginx-debian.html ./public/index.nginx-debian.html.bak
+mv info.php ./public/info.php.bak
+mv sendEmail.php ./public/sendEmail.php.bak
+php artisan key:generate
 
 ## Setup the Nginx
 echo "server {
     listen $_PORT;
-    root /var/www/html/$_NAME/public;
+    root /var/www/html/public;
     index index.html index.htm index.nginx-debian.html index.php;
     server_name _;
 
