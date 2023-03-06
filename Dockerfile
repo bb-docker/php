@@ -6,7 +6,7 @@ ENV TZ=Asia/Hong_Kong
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
  && apt update && apt -y upgrade \
  && add-apt-repository ppa:ondrej/php -y \
- && apt install php8.2 -y
+ && apt install php8.2 -y \
  && apt install -y \
     php8.2-fpm \
     php8.2-common \
