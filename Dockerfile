@@ -38,12 +38,14 @@ COPY ./info.php /var/www/html/info.php
 COPY ./sendEmail.php /var/www/html/sendEmail.php
 COPY ./mhsendmail /usr/local/bin/mhsendmail
 COPY ./installer /composer-setup.php
+COPY ./nodesource_setup.sh /nodesource_setup.sh
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./laravel.sh /laravel.sh
 
 # Start the Services
 RUN /etc/init.d/nginx reload \
  && /etc/init.d/php8.2-fpm start \
+ && chmod +x /nodesource_setup.sh \
  && chmod +x /entrypoint.sh \
  && chmod +x /laravel.sh
 
@@ -51,6 +53,23 @@ RUN /etc/init.d/nginx reload \
 RUN php /composer-setup.php \
  && mv /composer.phar /usr/local/bin/composer \
  && rm /composer-setup.php
+
+# Setup NodeSource
+RUN /nodesource_setup.sh
+
+# Install NPM & Node.js
+RUN apt-get update -y \
+ && apt-get install -y \
+    nodejs \
+    build-essential
+
+# Install library for Node.js
+RUN npm install -g \
+    npm \
+    sass
+
+# Remove Node Source Script
+RUN rm /nodesource_setup.sh
 
 WORKDIR /var/www/html
 EXPOSE 80 443
