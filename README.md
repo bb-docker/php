@@ -1,5 +1,5 @@
 # php
-This repository contains Dockerfile of nginx, php, nodejs and npm in ubuntu.
+This repository contains Dockerfile of nginx, php in ubuntu.
 
 ## Getting Started
 These instructions will get you to build php service with nginx in your docker. See Installation for notes on how to build your ubuntu on a live system.
@@ -19,14 +19,12 @@ docker exec -it php /bin/bash
 nginx -t
 php -v
 composer -V
-node -v
-npm -v
 ```
 
 ### Restart Services (If you need)
 ```
 /etc/init.d/nginx reload
-/etc/init.d/php8.2-fpm restart
+/etc/init.d/php8.3-fpm restart
 ```
 
 ### Create Laravel project
@@ -38,14 +36,14 @@ npm -v
 ### Use [mailhog](https://github.com/mailhog/MailHog) for email testing
 1. Create mailhog docker container. (Sample of `docker-compose.yml` attached, please change your content)
 2. Change the config as below `Config Setting`
-3. Change the your content in sendEmail.php
+3. Change your content in sendEmail.php
 4. Run `php sendEmail.php`
 5. You can check the result on [localhost:8025](http://localhost:8025)
 
 ### Config Setting
 ```
 # Enter to php Container
-# Find `sendmail_path` and change as below in file `/etc/php/8.2/cli/php.ini`
+# Find `sendmail_path` and change as below in file `/etc/php/8.3/cli/php.ini`
 sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog:1025"
 ```
 
