@@ -2,7 +2,7 @@ FROM bananabb/nginx:1.24
 MAINTAINER BananaBb
 
 # Install php:8.3 + packages + set HK timezone
-ENV TZ=Asia/Hong_Kong
+ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
  && apt update && apt -y upgrade \
  && apt install -y \
