@@ -26,29 +26,51 @@ mv .s* ../
 cd ../
 rm -rf $_NAME
 composer install
-mv index.nginx-debian.html ./public/index.nginx-debian.html.bak
-mv info.php ./public/info.php.bak
-mv sendEmail.php ./public/sendEmail.php.bak
+if [ -f "index.nginx-debian.html" ]; then
+    mv index.nginx-debian.html ./public/index.nginx-debian.html.bak
+fi
+if [ -f "info.php" ]; then
+    mv info.php ./public/info.php.bak
+fi
+if [ -f "sendEmail.php" ]; then
+    mv sendEmail.php ./public/sendEmail.php.bak
+fi
 php artisan key:generate
 
 ## Setup the Nginx
-echo "server {
+echo "#!/bin/bash
+# This script created by bananabb/php:/laravel.sh
+# This script ran automate by bananabb/php:/entrypoint.sh 
+# This script configure Nginx in a Docker container for an existing Laravel application
+
+echo \"server {
     listen $_PORT;
     root /var/www/html/public;
     index index.html index.htm index.nginx-debian.html index.php;
     server_name _;
 
     location / {
-        try_files \$uri \$uri/ /index.php?\$query_string;
+        try_files \$uri \$uri/ /index.php\$is_args\$args;
     }
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     }
-}" > /etc/nginx/sites-available/$_NAME
+
+    error_page 404 /index.php;
+
+    # deny access to hidden files such as .htaccess
+    location ~ /\. {
+        deny all;
+    }
+}\" > /etc/nginx/sites-available/$_NAME
 ln -s /etc/nginx/sites-available/$_NAME /etc/nginx/sites-enabled/
 rm /etc/nginx/sites-enabled/default
+/etc/init.d/nginx reload" > /var/www/html/laravel-site-setup.sh
+### Run script to set Nginx
+chmod +x /var/www/html/laravel-site-setup.sh
+source /var/www/html/laravel-site-setup.sh
 
 ## Restart Nginx
 /etc/init.d/nginx reload
