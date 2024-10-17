@@ -50,7 +50,7 @@ echo \"server {
     server_name _;
 
     location / {
-        try_files \$uri \$uri/ /index.php\$is_args\$args;
+        try_files \\\$uri \\\$uri/ /index.php\\\$is_args\\\$args;
     }
 
     location ~ \.php$ {
