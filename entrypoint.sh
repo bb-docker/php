@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Start services
 /etc/init.d/nginx start
@@ -7,6 +7,7 @@
 # Setup Laravel Nginx
 if [ -f "/var/www/html/laravel-site-setup.sh" ]; then
     source /var/www/html/laravel-site-setup.sh
+    /etc/init.d/nginx reload
 fi
 
 # Keep running
