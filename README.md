@@ -24,7 +24,7 @@ composer -V
 ### Restart Services (If you need)
 ```
 /etc/init.d/nginx reload
-/etc/init.d/php8.3-fpm restart
+/etc/init.d/php8.5-fpm restart
 ```
 
 ### Create Laravel project
@@ -43,7 +43,7 @@ composer -V
 ### Config Setting
 ```
 # Enter to php Container
-# Find `sendmail_path` and change as below in file `/etc/php/8.3/cli/php.ini`
+# Find `sendmail_path` and change as below in file `/etc/php/8.5/cli/php.ini`
 sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog:1025"
 ```
 
