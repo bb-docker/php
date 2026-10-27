@@ -1,7 +1,7 @@
-FROM bananabb/nginx:1.24
+FROM bananabb/nginx:1.28.3
 MAINTAINER BananaBb
 
-# Install php:8.3 + packages + set HK timezone
+# Install php:8.5 + packages + set HK timezone
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
  && apt update && apt -y upgrade \
@@ -18,9 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     php-imagick \
     php-cli \
     php-dev \
-    php-imap \
     php-mbstring \
-    php-opcache \
     php-soap \
     php-cgi \
     php-zip \
@@ -42,7 +40,7 @@ COPY ./laravel.sh /laravel.sh
 
 # Start the Services
 RUN /etc/init.d/nginx reload \
- && /etc/init.d/php8.3-fpm start \
+ && /etc/init.d/php8.5-fpm start \
  && chmod +x /entrypoint.sh \
  && chmod +x /laravel.sh
 
